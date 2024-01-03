@@ -5,6 +5,19 @@ import logo from './logo.svg'
 
 function Navbar() {
 	const [showLinks, setShowLinks] = useState(false)
+  const linksContainerRef = useRef(null)
+  const linksRef = useRef(null)
+
+  useEffect(() => {
+    const linksHeight = linksRef.current.getBoundingClientRect().height
+    // console.log(linksHeight)
+    if (showLinks) {
+      linksContainerRef.current.style.height = `${linksHeight}px`
+    } else {
+			linksContainerRef.current.style.height = '0px' // that case we must set a height of this container in index.css in media@ query to 'auto !important'( .links-container {height: auto !important;}) other case it can`t be seen !!! we also need a parent container to get the height of the child!!!
+		}
+  }, [showLinks])
+
 	return (
 		<nav>
 			<div className='nav-center'>
@@ -18,12 +31,8 @@ function Navbar() {
 						<FaBars />
 					</button>
 				</div>
-				<div
-					className={`${
-						showLinks ? 'links-container show-container' : 'links-container'
-					}`}
-				>
-					<ul className='links'>
+				<div className='links-container' ref={linksContainerRef}>
+					<ul className='links' ref={linksRef}>
 						{links.map(link => {
 							const { id, url, text } = link
 							return (
