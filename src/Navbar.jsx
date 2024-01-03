@@ -26,8 +26,8 @@ function Navbar() {
 					</ul>
 				</div>
 				<ul className='social-icons'>
-					{social.map(icon => {
-						const { id, url, icon } = icon
+					{social.map(socialIcon => {
+						const { id, url, icon } = socialIcon
 						return (
 							<li key={id}>
 								<a href={url}>{icon}</a>
